@@ -62,8 +62,8 @@ body {
 .head-text {
     font: normal normal bold 25px/25px Rubik;
     font-family: 'Rubik', sans-serif;
-    letter-spacing: 1px;
-    color: #42515f;
+    letter-spacing: 0px;
+    color:white;
     text-transform: capitalize;
     opacity: 1;
     text-align: center;
