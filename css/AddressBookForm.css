@@ -83,9 +83,9 @@ body {
 } 
 .row-content{
     position: relative;
-    padding-left: 50px;
-    padding-top: 15px;
-    padding-right: 50px;
+    padding-left: 40px;
+    padding-top: 20px;
+    padding-right: 40px;
     display: flex;
     flex-direction: row;
     margin-bottom: 12px;
@@ -153,7 +153,7 @@ select{
     align-content: flex-start;
     flex-grow: 1;
     padding: 12px;
-    border: 1px solid rgb(46, 140, 228);;
+    border: 1px solid rgb(46, 140, 228);
     border-radius: 4px;
     resize: vertical;
     font: normal normal normal 17px Rubik;
@@ -161,4 +161,10 @@ select{
     letter-spacing: 0px;
     color: darkblue;
     background-color: transparent;
+}
+error-output {
+    margin-left: 10px;
+    font-size: 12px;
+    font-style: italic;
+    color: red;
 }

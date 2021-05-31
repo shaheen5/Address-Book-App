@@ -30,12 +30,14 @@
                     <input class="input" type="text" id="name" name="name" placeholder=""
                            onchange="this.setAttribute('value',this.value)" required>
                     <label class="form-label" for="name">Full Name</label>
+                    <error-output class="text-error" for="text"></error-output>
                 </div>
                 <div class="row-content">
                     <textarea  class="input-text" name="address" id="address" placeholder="" 
                                onchange="this.setAttribute('value',this.value)" 
                                style="height: 80px;" required></textarea>
                     <label class="form-label-text" for="address">Address</label>
+                    <error-output class="addr-error" for="text"></error-output>
                 </div>
                 <div class="row-content">
                     <select id="city" name="City" class="city" required>
@@ -70,7 +72,7 @@
                         <option value="West Bengal">West Bengal</option>
 
                     </select>&nbsp;&nbsp;&nbsp;
-                    <select id="zipcode" name="Zipcode" class="zipcode">
+                    <select id="zipcode" name="Zipcode" class="zipcode" required>
                         <option value="">Select ZipCode</option>
                         <option value="110100">110100</option>
                         <option value="121102">121102</option>
@@ -88,8 +90,11 @@
                     <input type="text" class="input" name="phone" id="phone" placeholder="" 
                            onchange="this.setAttribute('value',this.value)" required>
                     <label class="form-label" for="phoneNumber">Phone Number</label>
+                    <error-output class="contact-error" for="text"></error-output>
                 </div>
             </form>
         </div>
+        <script src="../js/AddressBook.js"></script>
+        <script src="../js/AddressBookForm.js"></script>
     </body>
 </html>
