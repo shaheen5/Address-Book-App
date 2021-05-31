@@ -110,5 +110,17 @@ function createAndUpdateStorage(addressbookData){
     localStorage.setItem("AddressBookList",JSON.stringify(addressbookList));
 }
 
-
-
+//reset function to reset all elements in html form
+const resetForm=()=>{
+    setValue('#name',' ');
+    setValue('#address',' ');
+    setValue('#city','Select City');
+    setValue('#state','Select State');
+    setValue('#zipcode','Select ZipCode');
+    setValue('#phone',' '); 
+}
+//set id with given value
+const setValue=(id,value)=>{
+    const element = document.querySelector(id);
+    element.value = value;
+}
