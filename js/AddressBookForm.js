@@ -83,6 +83,7 @@ const createAddressBook = ()=> {
         setTextValue('.contact-error',e);
         throw e;
     }
+    addressbook.id = new Date().getTime();
     alert(addressbook.toString());
     return addressbook;
 }

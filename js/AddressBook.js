@@ -1,5 +1,10 @@
 class AddressBook {
    
+    get id() { return this._id;}
+    set id(id){
+        this._id = id;
+    }
+
     get name() { return this._name;}
     set name(name) {
         let nameRegex = RegExp('^[A-Z]{1}[\\sa-zA-Z]{2,}$');
