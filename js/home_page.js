@@ -67,9 +67,19 @@ const remove = (node)=> {
                   .map(personData=>personData.id)
                   .indexOf(addressbookData.id);
     addressbookList.splice(index,1);
-    localStorage.setItem("AddressBookList",JSON.stringify(addressbookList));
-    document.querySelector('.person-count').textContent = addressbookList.length;
-    createInnerHTML();
+    if(site_properties.use_local_storage.match("true")){
+        localStorage.setItem("AddressBookList",JSON.stringify(addressbookList));
+        createInnerHTML();
+    }else {
+        const deleteURL = site_properties.server_url + addressbookData.id.toString();
+        makeServiceCall("DELETE",deleteURL,false)
+            .then(responseText => {
+                createInnerHTML();
+            })
+            .catch(error => {
+                console.log("DELETE Error Status: "+JSON.stringify(error));
+            });
+    }
 }
 
 //update person details 

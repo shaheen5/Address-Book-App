@@ -16,15 +16,6 @@
       "_state": "KARNATAKA",
       "_zipCode": 800111,
       "_phoneNumber": "8723456789"
-    },
-    {
-      "_name": "Abhishek Sharma",
-      "_address": "Rainbow Environ Society",
-      "_city": "Mumbai",
-      "_state": "Maharashtra",
-      "_zipCode": "470201",
-      "_phoneNumber": "+919922156880",
-      "id": 2
     }
   ]
 }
