@@ -1,0 +1,19 @@
+{
+  "AddressBookContactDB": 
+    [ {
+      "id" : 1,
+      "_name" : "SHAHEEN",
+      "_address" : "KOREGAON PARK",
+      "_city" : "PUNE",
+      "_state" : "MAHARASHTRA",
+      "_zipCode" : 211611,
+      "_phoneNumber" : "7447423211"
+    }, {
+      "_name" : "ANINDO",
+      "_address" : "SHANTI CHOWK",
+      "_city" : "BANGALORE",
+      "_state" : "KARNATAKA",
+      "_zipCode" : 800111,
+      "_phoneNumber" : "8723456789"
+    } ]
+}

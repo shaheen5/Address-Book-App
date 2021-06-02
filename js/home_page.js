@@ -2,17 +2,37 @@
 let addressbookList;
 
 window.addEventListener('DOMContentLoaded', () => {
-    addressbookList = getPersonDataFromLocalStorage();
-    document.querySelector('.person-count').textContent = addressbookList.length;
-    createInnerHTML();
-    localStorage.removeItem('editPerson');
+    if(site_properties.use_local_storage.match("true")){
+        getPersonDataFromLocalStorage();
+    }else getPersonDataFromServer();
 });
+
 //get list of Person data from local storage
 const getPersonDataFromLocalStorage = () => {
-    return localStorage.getItem('AddressBookList') ?
+    addressbookList = localStorage.getItem('AddressBookList') ?
                         JSON.parse(localStorage.getItem('AddressBookList')) : [] ;
+    processPersonDataResponse();
 }
 
+const processPersonDataResponse = () => {
+    document.querySelector(".person-count").textContent = addressbookList.length;
+    createInnerHTML();
+    localStorage.removeItem('editPerson');
+}
+
+//get employee data from json server
+const getPersonDataFromServer = () => {
+    makeServiceCall("GET",site_properties.server_url,true)
+        .then(responseText => {
+            addressbookList = JSON.parse(responseText);
+            processPersonDataResponse();
+        })
+        .catch(error => {
+            console.log("GET Error Status : "+JSON.stringify(error));
+            addressbookList=[];
+            processPersonDataResponse();
+        });
+}
 //Template literal ES6 feature 
 const createInnerHTML = () => {
     const headerHtml = "<th>Full Name</th><th>Address</th><th>City</th><th>State</th>"+
