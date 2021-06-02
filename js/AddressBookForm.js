@@ -55,9 +55,14 @@ const save = (event)=> {
     event.stopPropagation();
     try{
         setAddressBookObject();
-        createAndUpdateStorage();
-        resetForm();
-        window.location.replace(site_properties.home_page);
+        if (site_properties.use_local_storage.match("true")){
+            createAndUpdateStorage();
+            resetForm();
+            window.location.replace(site_properties.home_page);
+        }else {
+            createOrUpdateAddressBook();
+        }
+        
     }catch(e){
         return;
     }
@@ -74,6 +79,20 @@ const setAddressBookObject = ()=>{
     addressbookObj._zipCode = getInputValueById('#zipcode');
     addressbookObj._phoneNumber = getInputValueById('#phone');    
 }
+
+//create or update addressbook from json server
+const createOrUpdateAddressBook=()=>{
+    let postURL = site_properties.server_url;
+    let methodCall = "POST";
+    makeServiceCall(methodCall,postURL,true,addressbookObj)
+        .then(responseText => {
+            resetForm();
+            window.location.replace(site_properties.home_page);
+        })
+        .catch(error => {
+            throw error;
+        });
+} 
 
 //function to populate employee object with html form data
 const createAddressBook =()=> {
