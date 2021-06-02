@@ -84,6 +84,10 @@ const setAddressBookObject = ()=>{
 const createOrUpdateAddressBook=()=>{
     let postURL = site_properties.server_url;
     let methodCall = "POST";
+    if (isUpdate){
+        methodCall = "PUT";
+        postURL = postURL + addressbookObj.id.toString();
+    }
     makeServiceCall(methodCall,postURL,true,addressbookObj)
         .then(responseText => {
             resetForm();
