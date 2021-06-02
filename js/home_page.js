@@ -30,8 +30,8 @@ const createInnerHTML = () => {
             <td>${addressbookData._zipCode}</td>
             <td>${addressbookData._phoneNumber}</td>
             <td>
-                <img id="${addressbookData._id}" onclick="remove(this)" alt="delete" src="../assets/icons/delete-black-18dp.svg">
-                <img id="${addressbookData._id}" alt="Edit" onclick="update(this)" src="../assets/icons/create-black-18dp.svg">
+                <img id="${addressbookData.id}" onclick="remove(this)" alt="delete" src="../assets/icons/delete-black-18dp.svg">
+                <img id="${addressbookData.id}" alt="Edit" onclick="update(this)" src="../assets/icons/create-black-18dp.svg">
             </td>        
         </tr>
         `;
@@ -41,11 +41,11 @@ const createInnerHTML = () => {
 
 // remove person details from addressbook list
 const remove = (node)=> {
-    let addressbookData = addressbookList.find(personData=>personData._id == node.id);
+    let addressbookData = addressbookList.find(personData=>personData.id == node.id);
     if (!addressbookData) return;
     const index =  addressbookList
-                  .map(personData=>personData._id)
-                  .indexOf(addressbookData._id);
+                  .map(personData=>personData.id)
+                  .indexOf(addressbookData.id);
     addressbookList.splice(index,1);
     localStorage.setItem("AddressBookList",JSON.stringify(addressbookList));
     document.querySelector('.person-count').textContent = addressbookList.length;
@@ -54,7 +54,7 @@ const remove = (node)=> {
 
 //update person details 
 const update = (node) => {
-    let addressbookData = addressbookList.find(personData=>personData._id == node.id);
+    let addressbookData = addressbookList.find(personData=>personData.id == node.id);
     if (!addressbookData) return;
     localStorage.setItem('editPerson',JSON.stringify(addressbookData));
     window.location.replace(site_properties.add_person_page);    

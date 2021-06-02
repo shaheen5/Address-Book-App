@@ -2,7 +2,6 @@ let isUpdate = false;
 let addressbookObj = {};
 //add event listener when document gets loaded
 window.addEventListener('DOMContentLoaded',()=>{
-    var addressbook = new AddressBook;
     //add listener to verify name entered by user
     const name = document.querySelector('#name');
     name.addEventListener('input',function(){        //add listener at name input
@@ -11,7 +10,7 @@ window.addEventListener('DOMContentLoaded',()=>{
             return;
         }
         try{
-            addressbook.name = name.value;
+            checkName(name.value);
             setTextValue('.text-error',"");
         }catch(e){
             setTextValue('.text-error',e);
@@ -26,7 +25,7 @@ window.addEventListener('DOMContentLoaded',()=>{
             return;
         }
         try{
-            addressbook.address = addr.value;
+            checkAddress(addr.value);
             setTextValue('.addr-error',"");
         }catch(e){
             setTextValue('.addr-error',e);
@@ -40,12 +39,13 @@ window.addEventListener('DOMContentLoaded',()=>{
             return;
         }
         try{
-            addressbook.phoneNumber= phoneNumber.value;
+            CheckPhoneNumber(phoneNumber.value);
             setTextValue('.contact-error',"");
         }catch(e){
             setTextValue('.contact-error',e);
         }
     });
+    document.querySelector('#cancelButton').href = site_properties.home_page;
     checkForUpdate();
 });
 
@@ -64,6 +64,9 @@ const save = (event)=> {
 }
 //populate addressbook object from UI
 const setAddressBookObject = ()=>{
+    if(!isUpdate && site_properties.use_local_storage.match("true")){
+        addressbookObj.id = createNewPersonId();
+    }
     addressbookObj._name = getInputValueById('#name');
     addressbookObj._address = getInputValueById('#address');
     addressbookObj._city = getInputValueById('#city');
@@ -73,7 +76,7 @@ const setAddressBookObject = ()=>{
 }
 
 //function to populate employee object with html form data
-const createAddressBook = ()=> {
+const createAddressBook =()=> {
     let addressbook = new AddressBook();
     try {
         addressbook.name = getInputValueById('#name');
@@ -117,18 +120,18 @@ const createAndUpdateStorage=()=>{
     let addressbookList = JSON.parse(localStorage.getItem("AddressBookList"));
     if(addressbookList){
         let addressbookData = addressbookList
-                              .find(personData => personData._id == addressbookObj._id);
+                              .find(personData => personData.id == addressbookObj.id);
         if(!addressbookData){
-               addressbookList.push(createAddressBook());
+               addressbookList.push(addressbookObj);
         }else{
             const index = addressbookList
-                         .map(personData=>personData._id)
-                         .indexOf(addressbookData._id);
-            addressbookList.splice(index,1,createAddressBookData(addressbookData._id));
+                         .map(personData=>personData.id)
+                         .indexOf(addressbookData.id);
+            addressbookList.splice(index,1,addressbookObj);
         }
     }
     else{
-        addressbookList = [createAddressBook()];
+        addressbookList = [addressbookObj];
     }
     alert(addressbookList.toString());
     localStorage.setItem("AddressBookList",JSON.stringify(addressbookList));
@@ -136,7 +139,7 @@ const createAndUpdateStorage=()=>{
 //create person data using id
 const createAddressBookData = (id) => {
     let addressbookData = new AddressBook();
-    if (!id)  addressbookData._id = createNewPersonId();
+    if (!id)  addressbookData.id = createNewPersonId();
     else addressbookData.id = id;
     setAddressBookData(addressbookData);
     return addressbookData;
@@ -170,7 +173,7 @@ const setAddressBookData = (addressbook) => {
 
 //create new person id 
 const createNewPersonId = ()=> {
-    let personID = localStorage.getTime('PersonId');
+    let personID = localStorage.getItem('PersonId');
     personID = !personID ? 1 : (parseInt(personID)+1).toString();
     localStorage.setItem('PersonId',personID);
     return personID;
